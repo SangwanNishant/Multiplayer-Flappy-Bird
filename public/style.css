@@ -1,0 +1,137 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* General Body Styling */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('assets/bg.png') center/cover no-repeat;
+    height: 100%;
+    color: white;
+}
+
+/* Canvas Styling */
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Main Container */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+}
+
+/* Menu Box */
+.menu-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+}
+
+/* Title Styling */
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* Button Styling */
+button {
+    background-color: #1e79a8;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #146080;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none !important;
+}
+
+/* Form Styling */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Sign-Up and Login Forms */
+#signUpForm, #loginForm {
+    display: block; /* Allow showing the form */
+    margin-top: 20px;
+}
+
+#signUpForm input, #loginForm input {
+    margin: 10px 0;
+}
+
+/* Submit Buttons */
+#submitSignUp, #submitLogin {
+    background-color: #1e79a8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+}
+
+#submitSignUp:hover, #submitLogin:hover {
+    background-color: #146080;
+}
+
+/* Game Container */
+#game-container {
+    display: none;
+    z-index: 5;
+}
+
+/* Modal Styles (if using) */
+.modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}

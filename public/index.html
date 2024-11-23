@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Menu</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Menu Modal -->
+    <div class="main-container">
+        <div class="menu-box">
+            <h1>Welcome to Flappy Bird</h1>
+            <button id="startGameBtn">Start Game</button>
+            <button id="guestBtn">Play as Guest</button>
+            
+            <div id="authOptions" class="hidden">
+                <button id="signUpBtn">Sign Up</button>
+                <button id="loginBtn">Login</button>
+            </div>
+    
+            <div id="signUpForm" class="hidden">
+                <h2>Sign Up</h2>
+                <input type="text" id="signUpUsername" placeholder="Username" required />
+                <input type="email" id="signUpEmail" placeholder="Email" required />
+                <input type="password" id="signUpPassword" placeholder="Password" required />
+                <button id="submitSignUp">Submit</button>
+            </div>
+    
+            <div id="loginForm" class="hidden">
+                <h2>Login</h2>
+                <input type="text" id="loginUsername" placeholder="Username" required />
+                <input type="password" id="loginPassword" placeholder="Password" required />
+                <button id="submitLogin">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="menu.js"></script>
+</body>
+</html>
