@@ -31,6 +31,13 @@ canvas {
     height: 100%;
 }
 
+
+#welcome-text{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+
 /* Main Container */
 .main-container {
     display: flex;
@@ -43,8 +50,8 @@ canvas {
 }
 
 /* Menu Box */
-.menu-box {
-    background-color: rgba(255, 255, 255, 0.8);
+#main-menu {
+    background-color: rgb(230, 228, 210);
     padding: 30px;
     border-radius: 15px;
     text-align: center;

@@ -1,14 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements
-    const mainContainer = document.querySelector(".main-container");
-    const gameContainer = document.getElementById("game-container");
-    const submitSignUp = document.getElementById("submitSignUp");
-    const submitLoginBtn = document.getElementById("submitLogin");
-    const startGameBtn = document.getElementById("startGameBtn");
-    const guestBtn = document.getElementById("guestBtn");
+    const mainMenu = document.getElementById("main-menu");
     const authOptions = document.getElementById("authOptions");
     const signUpForm = document.getElementById("signUpForm");
     const loginForm = document.getElementById("loginForm");
+    const gameContainer = document.getElementById("game-container");
+    const guestBtn = document.getElementById("guestBtn");
+    const startGameBtn = document.getElementById("startGameBtn");
+    const signUpBtn = document.getElementById("signUpBtn");
+    const loginBtn = document.getElementById("loginBtn");
+    const submitSignUp = document.getElementById("submitSignUp");
+    const submitLogin = document.getElementById("submitLogin");
+    // const backToAuthFromSignUp = document.getElementById("backToAuthFromSignUp");
+    // const backToAuthFromLogin = document.getElementById("backToAuthFromLogin");
   
     // Utility Functions
     function showElement(element) {
@@ -19,21 +23,59 @@ document.addEventListener("DOMContentLoaded", () => {
       element.classList.add("hidden");
     }
   
-    function switchToGame() {
-      hideElement(mainContainer); // Hide the menu
-      showElement(gameContainer); // Show the game container
-      console.log("Game is starting...");
-      // Define your game initialization logic here
-      // startGame();
-    }
+    // function initializeGame() {
+    //   hideElement(mainMenu);
+    //   hideElement(authOptions);
+    //   hideElement(signUpForm);
+    //   hideElement(loginForm);
+    //   showElement(gameContainer);
+    //   console.log("Game is starting...");
+    //   // Initialize your game logic here
+    //   startGame();
+    // }
   
-    // API Call Functions
-    async function submitSignup() {
+    // Button Handlers
+    // guestBtn.addEventListener("click", () => {
+    //   console.log("Playing as Guest");
+    //   initializeGame();
+    // });
+  
+    startGameBtn.addEventListener("click", () => {
+      console.log("Showing authentication options");
+      hideElement(mainMenu);
+      showElement(authOptions);
+    });
+  
+    signUpBtn.addEventListener("click", () => {
+      console.log("Showing sign-up form");
+      hideElement(authOptions);
+      showElement(signUpForm);
+    });
+  
+    loginBtn.addEventListener("click", () => {
+      console.log("Showing login form");
+      hideElement(authOptions);
+      showElement(loginForm);
+    });
+  
+    // backToAuthFromSignUp.addEventListener("click", () => {
+    //   console.log("Returning to authentication options");
+    //   hideElement(signUpForm);
+    //   showElement(authOptions);
+    // });
+  
+    // backToAuthFromLogin.addEventListener("click", () => {
+    //   console.log("Returning to authentication options");
+    //   hideElement(loginForm);
+    //   showElement(authOptions);
+    // });
+  
+    submitSignUp.addEventListener("click", async () => {
       const username = document.getElementById("signUpUsername").value.trim();
       const password = document.getElementById("signUpPassword").value.trim();
   
       if (!username || !password) {
-        alert("Please fill in both username and password.");
+        alert("Please fill out both fields");
         return;
       }
   
@@ -47,22 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
         alert(result.message);
   
-        if (response.ok) {
-          console.log("Signup successful, redirecting...");
-          setTimeout(() => (window.location.href = "/game"), 1500);
-        }
-      } catch (error) {
-        console.error("Signup Error:", error);
-        alert("An error occurred during signup. Please try again.");
+        if (response.ok) startGame();
+      } catch (err) {
+        console.error(err);
+        alert("Error during signup. Please try again.");
       }
-    }
+    });
   
-    async function submitLogin() {
+    submitLogin.addEventListener("click", async () => {
       const username = document.getElementById("loginUsername").value.trim();
       const password = document.getElementById("loginPassword").value.trim();
   
       if (!username || !password) {
-        alert("Please fill in both username and password.");
+        alert("Please fill out both fields");
         return;
       }
   
@@ -76,46 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
         alert(result.message);
   
-        if (response.ok) {
-          console.log("Login successful, redirecting...");
-          setTimeout(() => (window.location.href = "/game"), 1500);
-        }
-      } catch (error) {
-        console.error("Login Error:", error);
-        alert("An error occurred during login. Please try again.");
+        if (response.ok) startGame();
+      } catch (err) {
+        console.error(err);
+        alert("Error during login. Please try again.");
       }
-    }
-  
-    // Event Listeners
-    startGameBtn.addEventListener("click", () => {
-      console.log("Showing authentication options...");
-      showElement(authOptions);
-      hideElement(startGameBtn);
-      hideElement(guestBtn);
     });
-  
-    guestBtn.addEventListener("click", () => {
-      alert("Playing as Guest!");
-      console.log("Game starting for guest...");
-      setTimeout(switchToGame, 2000); // Start the game for guest play after a delay
-    });
-  
-    document.getElementById("signUpBtn").addEventListener("click", () => {
-      showElement(signUpForm);
-      hideElement(authOptions);
-    });
-  
-    document.getElementById("loginBtn").addEventListener("click", () => {
-      showElement(loginForm);
-      hideElement(authOptions);
-    });
-  
-    submitSignUp.addEventListener("click", submitSignup);
-    submitLoginBtn.addEventListener("click", submitLogin);
-  
-    // Show menu on initial load
-    console.log("Displaying menu...");
-    showElement(mainContainer);
-    hideElement(gameContainer);
   });
   

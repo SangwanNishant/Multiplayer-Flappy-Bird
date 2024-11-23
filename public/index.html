@@ -11,10 +11,10 @@
 <body>
     <!-- Main Menu Modal -->
     <div class="main-container">
-        <div class="menu-box">
-            <h1>Welcome to Flappy Bird</h1>
+        <div id="main-menu">
+            <h1 id="welcome-text">WELCOME TO FLAPPY BIRD</h1>
             <button id="startGameBtn">Start Game</button>
-            <button id="guestBtn">Play as Guest</button>
+            <button id="guestBtn" onclick="redirectToEndpoint()" >Play as Guest</button>
             
             <div id="authOptions" class="hidden">
                 <button id="signUpBtn">Sign Up</button>
@@ -37,8 +37,21 @@
             </div>
         </div>
     </div>
+    <!-- game cotainer -->
+    <div id="game-container"></div>
+        <canvas id="gameCanvas"></canvas>
+    </div>
 
     <!-- External JavaScript -->
+     <script>
+        function redirectToEndpoint(){
+            window.location.href = "http://localhost:5000/game"
+        }
+     </script>
+    <script src="game.js"></script>
     <script src="menu.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
