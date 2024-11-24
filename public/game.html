@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flappy Bird Menu</title>
     <link rel="stylesheet" href="game.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Add Bootstrap CSS -->
 </head>
 <body>
@@ -59,7 +60,7 @@
               <div class="modal-header">
                 <h5 class="modal-title" id="gameOverModalLabel">GAME OVER</h5>
                 <button type="button" class="close" >
-                  <span style="padding-bottom: 5px;">&times;</span>
+                  <span style="padding-bottom: 5px;" onclick="redirectToMenu()">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
@@ -78,7 +79,11 @@
       </div>
     </div>
 
-
+    <script>
+      function redirectToMenu(){
+          window.location.href = "http://localhost:5000/"
+      }
+   </script>
     <!-- External JavaScript -->
     <script src="game.js"></script>
     <!-- <script src="menu.js"></script> -->
