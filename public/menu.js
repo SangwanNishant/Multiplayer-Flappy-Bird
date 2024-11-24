@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   
       try {
-        const response = await fetch(`http://localhost:8080/signup`, {
+        const response = await fetch(`/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(result.message);
   
         if (response.ok){
-          window.location.href = `http://localhost:8080/game`
+          window.location.href = `/game`
         }
       } catch (err) {
         console.error(err);
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   
       try {
-        const response = await fetch(`http://localhost:8080/login`, {
+        const response = await fetch(`/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(result.message);
   
         if (response.ok) {
-          window.location.href = `http://localhost:8080/game`
+          window.location.href = `/game`
         }
       } catch (err) {
         console.error(err);
