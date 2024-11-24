@@ -31,8 +31,6 @@ canvas {
     height: 100%;
 }
 
-/* customising modal */
-/* Center the modal with custom size */
 .modal-dialog {
     max-width: 600px; /* You can set a custom size for your modal */
     margin: auto; /* Automatically centers the modal horizontally */
@@ -62,6 +60,10 @@ canvas {
     color: white;
 }
 
+.modal-body{
+    background-color: rgba(230,228,210,255);
+}
+
 /* Modal footer */
 .modal-footer {
     background-color: lightblue; /* Dark footer background */
@@ -78,8 +80,8 @@ canvas {
 
 /* Button styles */
 
-.modal-footer .btn {
-    background-color: lightcoral; /* Green buttons */
+/* .modal-footer .btn {
+    background-color: lightcoral; 
     color: white;
     font-weight: bold;
     font-size: 20px;
@@ -88,7 +90,36 @@ canvas {
     border-radius: 8px;
     padding-top: 6px;
     padding-bottom: 7px;
+} */
+
+#boardBtn{
+    background-color: lightcoral; /* Green buttons */
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    border-color: black;
+    border-radius: 5px;
+    padding-top: 6px;
+    padding-bottom: 7px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
+
+#restartBtn{
+    background-color: lightcoral; /* Green buttons */
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    border-color: black;
+    border-radius: 5px;
+    padding-top: 6px;
+    padding-bottom: 7px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
 #gameOverModal {
     display: flex;
     position: fixed;

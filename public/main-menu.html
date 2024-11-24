@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flappy Bird Menu</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
     <!-- Add Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -13,7 +13,7 @@
     <div class="main-container">
         <div id="main-menu">
             <h1 id="welcome-text">WELCOME TO FLAPPY BIRD</h1>
-            <button id="startGameBtn">Start Game</button>
+            <button id="startGameBtn" onclick="redirectToStart()">Start Game</button>
             <button id="guestBtn" onclick="redirectToGame()" >Play as Guest</button>
             
             <div id="authOptions" class="hidden">
@@ -38,17 +38,19 @@
         </div>
     </div>
     <!-- game cotainer -->
-    <div id="game-container"></div>
-        <canvas id="gameCanvas"></canvas>
+    <div id="game-container" ></div>
+        <canvas id="gameCanvas" ></canvas>
     </div>
 
     <!-- External JavaScript -->
      <script>
         function redirectToGame(){
-            window.location.href = "http://localhost:5000/game"
+            window.location.href = "http://localhost:8080/game"
+        }
+        function redirectToStart(){
+            window.location.href = "http://localhost:8080/start"
         }
      </script>
-    <script src="game.js"></script>
     <script src="menu.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>

@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginBtn = document.getElementById("loginBtn");
     const submitSignUp = document.getElementById("submitSignUp");
     const submitLogin = document.getElementById("submitLogin");
-    // const backToAuthFromSignUp = document.getElementById("backToAuthFromSignUp");
-    // const backToAuthFromLogin = document.getElementById("backToAuthFromLogin");
   
     // Utility Functions
     function showElement(element) {
@@ -23,28 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       element.classList.add("hidden");
     }
   
-    // function initializeGame() {
-    //   hideElement(mainMenu);
-    //   hideElement(authOptions);
-    //   hideElement(signUpForm);
-    //   hideElement(loginForm);
-    //   showElement(gameContainer);
-    //   console.log("Game is starting...");
-    //   // Initialize your game logic here
-    //   startGame();
-    // }
-  
-    // Button Handlers
-    // guestBtn.addEventListener("click", () => {
-    //   console.log("Playing as Guest");
-    //   initializeGame();
-    // });
-  
-    startGameBtn.addEventListener("click", () => {
-      console.log("Showing authentication options");
-      hideElement(mainMenu);
-      showElement(authOptions);
-    });
+
   
     signUpBtn.addEventListener("click", () => {
       console.log("Showing sign-up form");
@@ -58,18 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
       showElement(loginForm);
     });
   
-    // backToAuthFromSignUp.addEventListener("click", () => {
-    //   console.log("Returning to authentication options");
-    //   hideElement(signUpForm);
-    //   showElement(authOptions);
-    // });
-  
-    // backToAuthFromLogin.addEventListener("click", () => {
-    //   console.log("Returning to authentication options");
-    //   hideElement(loginForm);
-    //   showElement(authOptions);
-    // });
-  
     submitSignUp.addEventListener("click", async () => {
       const username = document.getElementById("signUpUsername").value.trim();
       const password = document.getElementById("signUpPassword").value.trim();
@@ -80,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   
       try {
-        const response = await fetch("http://localhost:5000/signup", {
+        const response = await fetch(`http://localhost:8080/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
@@ -89,7 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
         alert(result.message);
   
-        if (response.ok) startGame();
+        if (response.ok){
+          window.location.href = `http://localhost:8080/game`
+        }
       } catch (err) {
         console.error(err);
         alert("Error during signup. Please try again.");
@@ -106,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   
       try {
-        const response = await fetch("http://localhost:5000/login", {
+        const response = await fetch(`http://localhost:8080/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
@@ -115,7 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
         alert(result.message);
   
-        if (response.ok) startGame();
+        if (response.ok) {
+          window.location.href = `http://localhost:8080/game`
+        }
       } catch (err) {
         console.error(err);
         alert("Error during login. Please try again.");

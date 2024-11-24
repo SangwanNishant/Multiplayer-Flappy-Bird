@@ -159,21 +159,13 @@ document.addEventListener("DOMContentLoaded", () => {
         isGameOver = true;
         console.log("Game Over triggered");
         const scoreElement = document.getElementById('finalScore');
-        scoreElement.textContent = `${Math.floor(score)}`;
+        scoreElement.textContent = `${score}`
+        // scoreElement.textContent = Math.floor(score);
         console.log("Score updated");
         showElement(gameovermodal);
         console.log("Game Over Modal shown");
         cancelAnimationFrame(gameFrameId);
     }
-    
-
-    // // Show the game over modal and score
-    // function showGameOverModal() {
-    //     const scoreElement = document.getElementById('finalScore');
-    //     scoreElement.textContent = `${Math.floor(score)}`;
-    //     showElement(gameovermodal);
-    // }
-
     
     // Handle game restart
     function restartGame() {
@@ -253,11 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    const restartgamebtn = document.getElementById("restartBtn") 
-
-    restartgamebtn.addEventListener("click",()=>{
-        restartGame();
-    })
+    
 
     startGame()
 })
