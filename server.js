@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const validator = require("validator");
 
 const app = express()
 const PORT = 5000 
@@ -27,6 +28,7 @@ mongoose.connect(process.env.MONGO_URI,{connectTimeoutMS: 30000,socketTimeoutMS:
 const userSchema = new mongoose.Schema({
     username:{ type: String, required: true, unique: true },
     password: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
 })
 
 const User = mongoose.model("User", userSchema)
@@ -82,15 +84,23 @@ app.get('/start', (req, res) => {
 
 // signup route
 app.post("/signup", async (req,res) => {
-    const { username, password} = req.body
+    const { username, password, email} = req.body
     
     try {
         // check if user exists
         const existingUser  = await User.findOne({username})
+        const existingEmail = await User.findOne({ email });
+
         if(existingUser){
             return res.status(400).json({message: "Username already exists"})
         }
-
+        if (existingEmail) {
+            return res.status(400).json({ message: "Email already exists" });
+        }
+        // checking if email entered is valid or not
+        if (!validator.isEmail(email)) {
+            return res.status(400).json({ message: "Invalid email format" });
+          }
         // hash password
         const hashedPassword = await bcrypt.hash(password, 10)
 
