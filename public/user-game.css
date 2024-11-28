@@ -1,0 +1,134 @@
+/* Hidden Class */
+.hidden {
+    display: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black; /* Set to black to clearly see changes */
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensures it scales with viewport */
+    height: 100%;
+}
+
+.modal-dialog {
+    max-width: 600px; /* You can set a custom size for your modal */
+    margin: auto; /* Automatically centers the modal horizontally */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #2c3e50; /* Dark background color */
+    color: white; /* White text color */
+    min-height: 300px;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+#scoreContent{
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* Modal header */
+.modal-header {
+    background-color: #2980b9; /* Blue background */
+    min-height: 60px;
+    color: white;
+}
+
+.modal-body{
+    background-color: rgba(230,228,210,255);
+}
+
+/* Modal footer */
+.modal-footer {
+    background-color: lightblue; /* Dark footer background */
+    color: white;
+    min-height: 60px;
+}
+
+/* Close button */
+.modal-header .close {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* Button styles */
+
+/* .modal-footer .btn {
+    background-color: lightcoral; 
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    border-color: black;
+    border-radius: 8px;
+    padding-top: 6px;
+    padding-bottom: 7px;
+} */
+
+#boardBtn{
+    background-color: lightcoral; /* Green buttons */
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    border-color: black;
+    border-radius: 5px;
+    padding-top: 6px;
+    padding-bottom: 7px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#restartBtn{
+    background-color: lightcoral; /* Green buttons */
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    border-color: black;
+    border-radius: 5px;
+    padding-top: 6px;
+    padding-bottom: 7px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#gameOverModal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8); 
+    z-index: 1000;
+}

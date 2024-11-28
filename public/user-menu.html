@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Menu</title>
+    <link rel="stylesheet" href="user-menu.css">
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Menu Modal -->
+    <div class="main-container">
+        <div id="main-menu">
+            <h1 id="welcome-text">WELCOME TO FLAPPY BIRD</h1>
+            <button id="startGameBtn" onclick="redirectUserToGame()">Play Game</button>
+            <button id="guestBtn"  class="hidden">Play as Guest</button>
+            
+            <div id="authOptions" class="hidden">
+                <button id="signUpBtn">Sign Up</button>
+                <button id="loginBtn">Login</button>
+            </div>
+    
+            <div id="signUpForm" class="hidden">
+                <h2>Sign Up</h2>
+                <input type="text" id="signUpUsername" placeholder="Username" required />
+                <input type="email" id="signUpEmail" placeholder="Email" required />
+                <input type="password" id="signUpPassword" placeholder="Password" required />
+                <button id="submitSignUp">Submit</button>
+            </div>
+    
+            <div id="loginForm" class="hidden">
+                <h2>Login</h2>
+                <input type="text" id="loginUsername" placeholder="Username" required />
+                <input type="password" id="loginPassword" placeholder="Password" required />
+                <button id="submitLogin">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- game cotainer -->
+    <div id="game-container" ></div>
+        <canvas id="gameCanvas" ></canvas>
+    </div>
+
+    <!-- External JavaScript -->
+     <script>
+        function redirectUserToGame(){
+            window.location.href = "/user-game"
+        }
+     </script>
+    <script src="menu.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
