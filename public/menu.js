@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(result.message);
   
         if (response.ok){
-          window.location.href = `/game`
+          window.location.href = `/user`
         }
       } catch (err) {
         console.error(err);
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(result.message);
   
         if (response.ok) {
-          window.location.href = `/game`
+          window.location.href = `/user`
         }
       } catch (err) {
         console.error(err);

@@ -8,7 +8,7 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express()
-const PORT = 8080 
+const PORT = 5000 
 
 
 // middleware
@@ -37,10 +37,31 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/main-menu.html");
 });
 
-app.get('/game', (req, res) => {
+app.get('/guest', (req, res) => {
     try {
         // Serve the index.html but append the query parameter
-        res.sendFile(path.join(__dirname, 'public', 'game.html'));
+        res.sendFile(path.join(__dirname, 'public', 'game-guest.html'));
+    } catch (error) {
+        console.error("Error serving /game route:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+app.get('/user', (req, res) => {
+    try {
+        // Serve the index.html but append the query parameter
+        res.sendFile(path.join(__dirname, 'public', 'user-menu.html'));
+    } catch (error) {
+        console.error("Error serving /game route:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.get('/user-game', (req, res) => {
+    try {
+        // Serve the index.html but append the query parameter
+        res.sendFile(path.join(__dirname, 'public', 'user-game.html'));
     } catch (error) {
         console.error("Error serving /game route:", error);
         res.status(500).send("Internal Server Error");
