@@ -71,7 +71,7 @@
               </div>
               <div class="modal-footer">
                   <div class="footer-buttons">
-                      <button type="button" id="boardBtn" >Leaderboard</button>
+                      <button type="button" id="boardBtn" onclick="redirectUserToLeaderboard()">Leaderboard</button>
                       <button type="button" id="restartBtn" onclick="redirectToRestartGame()" style="margin-left: 160px;">Restart Game</button>
                   </div>
               </div>
@@ -79,16 +79,10 @@
       </div>
     </div>
 
-    <script>
-      function redirectToMenu(){
-          window.location.href = "/user"
-      }
-      function redirectToRestartGame(){
-            window.location.href = "/user-game"
-        }
-   </script>
+     
     <!-- External JavaScript -->
     <script src="game.js"></script>
+    <script src="redirectFunc.js"></script>
     <!-- <script src="menu.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>

@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
     submitSignUp.addEventListener("click", async () => {
       const username = document.getElementById("signUpUsername").value.trim();
       const password = document.getElementById("signUpPassword").value.trim();
-      const email = document.getElementById("signUpEmail").value.trim();
+      // const email = document.getElementById("signUpEmail").value.trim();
   
-      if (!username || !password || !email) {
+      if (!username || !password ) {
         alert("Please fill out both fields");
         return;
       }
@@ -49,13 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch(`/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password, email }),
+          body: JSON.stringify({ username, password }),
         });
   
         const result = await response.json();
         alert(result.message);
   
         if (response.ok){
+          sessionStorage.setItem('username', result.username); 
+          sessionStorage.setItem('token', result.token);
           window.location.href = `/user`
         }
       } catch (err) {
@@ -84,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(result.message);
   
         if (response.ok) {
+          sessionStorage.setItem('username', result.username); 
+          sessionStorage.setItem('token', result.token);
           window.location.href = `/user`
         }
       } catch (err) {

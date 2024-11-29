@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flappy Bird Menu</title>
-    <link rel="stylesheet" href="game.css">
+    <link rel="stylesheet" href="game-guest.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Add Bootstrap CSS -->
 </head>
@@ -60,7 +60,7 @@
               <div class="modal-header">
                 <h5 class="modal-title" id="gameOverModalLabel">GAME OVER</h5>
                 <button type="button" class="close" >
-                  <span style="padding-bottom: 5px;" onclick="redirectGuestToMenu()">&times;</span>
+                  <span style="padding-bottom: 5px;" onclick="redirectToMenu()">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
@@ -71,23 +71,16 @@
               </div>
               <div class="modal-footer">
                   <div class="footer-buttons">
-                      <button type="button" id="boardBtn" >Leaderboard</button>
-                      <button type="button" id="restartBtn" onclick="redirectGuestToRestartGame()" style="margin-left: 160px;">Restart Game</button>
+                      <button type="button" id="boardBtn" onclick="redirectGuestToLeaderboard()">Leaderboard</button>
+                      <button type="button" id="restartBtn" onclick="redirectToRestartGame()" style="margin-left: 160px;">Restart Game</button>
                   </div>
               </div>
         </div>
       </div>
     </div>
 
-    <script>
-      function redirectGuestToMenu(){
-          window.location.href = "/"
-      }
-      function redirectGuestToRestartGame(){
-            window.location.href = "/guest"
-        }
-   </script>
     <!-- External JavaScript -->
+    <script src="redirectFunc.js"></script>
     <script src="game.js"></script>
     <script src="menu.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -160,7 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Game Over triggered");
         const scoreElement = document.getElementById('finalScore');
         scoreElement.textContent = `${score}`
-        // scoreElement.textContent = Math.floor(score);
+        // Store the score in local storage
+        sessionStorage.setItem('finalScore',score);
         console.log("Score updated");
         showElement(gameovermodal);
         console.log("Game Over Modal shown");

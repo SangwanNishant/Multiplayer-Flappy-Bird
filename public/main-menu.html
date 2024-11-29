@@ -14,7 +14,7 @@
         <div id="main-menu">
             <h1 id="welcome-text">WELCOME TO FLAPPY BIRD</h1>
             <button id="startGameBtn" onclick="redirectToStart()">Start Game</button>
-            <button id="guestBtn" onclick="redirectGuestToGame()" >Play as Guest</button>
+            <button id="guestBtn" onclick="redirectToGame()" >Play as Guest</button>
             
             <div id="authOptions" class="hidden">
                 <button id="signUpBtn">Sign Up</button>
@@ -43,14 +43,7 @@
     </div>
 
     <!-- External JavaScript -->
-     <script>
-        function redirectGuestToGame(){
-            window.location.href = "/guest"
-        }
-        function redirectToStart(){
-            window.location.href = "/start"
-        }
-     </script>
+    <script src="redirectFunc.js"></script>
     <script src="menu.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
