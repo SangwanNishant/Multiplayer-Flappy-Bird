@@ -78,19 +78,6 @@ canvas {
     text-align: center;
 }
 
-/* Button styles */
-
-/* .modal-footer .btn {
-    background-color: lightcoral; 
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    height: 50px;
-    border-color: black;
-    border-radius: 8px;
-    padding-top: 6px;
-    padding-bottom: 7px;
-} */
 
 #boardBtn{
     background-color: lightcoral; /* Green buttons */

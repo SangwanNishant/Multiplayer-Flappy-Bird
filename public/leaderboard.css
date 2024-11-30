@@ -35,6 +35,52 @@ table.table {
     padding: 15px;
 }
 
+/* General button styling */
+.btn {
+    display: inline-block;
+    margin: 20px 10px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Focused state for accessibility */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(72, 239, 128, 0.8);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .btn {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Responsive design for very small screens (mobile) */
+@media (max-width: 480px) {
+    .btn {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+        margin: 15px 5px;
+    }
+}
+
+
 /* Table body styling */
 #Leaderboard-table tr:nth-child(even) {
     background-color: #f9f9f9;

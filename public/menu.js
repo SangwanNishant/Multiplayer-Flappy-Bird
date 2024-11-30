@@ -38,62 +38,77 @@ document.addEventListener("DOMContentLoaded", () => {
     submitSignUp.addEventListener("click", async () => {
       const username = document.getElementById("signUpUsername").value.trim();
       const password = document.getElementById("signUpPassword").value.trim();
-      // const email = document.getElementById("signUpEmail").value.trim();
-  
-      if (!username || !password ) {
-        alert("Please fill out both fields");
-        return;
-      }
-  
-      try {
-        const response = await fetch(`/signup`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
-  
-        const result = await response.json();
-        alert(result.message);
-  
-        if (response.ok){
-          sessionStorage.setItem('username', result.username); 
-          sessionStorage.setItem('token', result.token);
-          window.location.href = `/user`
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Error during signup. Please try again.");
-      }
-    });
-  
-    submitLogin.addEventListener("click", async () => {
-      const username = document.getElementById("loginUsername").value.trim();
-      const password = document.getElementById("loginPassword").value.trim();
   
       if (!username || !password) {
-        alert("Please fill out both fields");
-        return;
+          alert("Please fill out both fields");
+          return;
       }
   
       try {
-        const response = await fetch(`/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
+          const response = await fetch("/signup", { // Ensure the URL is correct
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+          });
   
-        const result = await response.json();
-        alert(result.message);
+          const result = await response.json();
+          alert(result.message);  // Notify the user about the signup status
   
-        if (response.ok) {
-          sessionStorage.setItem('username', result.username); 
-          sessionStorage.setItem('token', result.token);
-          window.location.href = `/user`
-        }
+          if (response.ok) {
+              // Store the token and username in sessionStorage
+              sessionStorage.setItem("authToken", result.token);
+              sessionStorage.setItem("username", result.username);
+  
+              console.log("Token stored:", sessionStorage.getItem("authToken"));
+              alert("Token successfully set in sessionStorage");
+  
+              // Redirect to the user page or wherever appropriate
+              window.location.href = "/user";
+          } else {
+              console.error("Signup failed");
+          }
       } catch (err) {
-        console.error(err);
-        alert("Error during login. Please try again.");
+          console.error(err);
+          alert("Error during signup. Please try again.");
       }
-    });
   });
   
+  submitLogin.addEventListener("click", async () => {
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    if (!username || !password) {
+        alert("Please fill out both fields");
+        return;
+    }
+
+    try {
+        const response = await fetch("/login", {  // Ensure the URL is correct
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const result = await response.json();
+        alert(result.message);  // Notify the user about the login status
+
+        if (response.ok) {
+            // Store the token and username in sessionStorage
+            sessionStorage.setItem("authToken", result.token);
+            sessionStorage.setItem("username", result.username);
+
+            console.log("Token stored:", sessionStorage.getItem("authToken"));
+            
+
+            // Redirect to the user page or wherever appropriate
+            window.location.href = "/user";
+        } else {
+            console.error("Login failed");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Error during login. Please try again.");
+    }
+});
+
+});

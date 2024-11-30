@@ -52,5 +52,55 @@ document.addEventListener('DOMContentLoaded', ()=>{
         leaderboardTable.innerHTML += row;
         });
     }
-    submitScoreAndFetchLeaderboard()
+
+    const menuBtn = document.getElementById('back-to-main-menu-btn');
+const restartBtn = document.getElementById('restart-btn');
+
+try {
+    const token = sessionStorage.getItem("authToken");
+    
+    if (!token) {
+        console.log("No token found. Redirect to login or guest flow.");
+        // window.location.href = "/"; // Redirect to login if no token
+        return;
+    }
+
+    // Decode the token
+    const decoded = jwt_decode(token);
+    console.log(decoded.mode); // Outputs 'GUEST' or 'USER'
+
+    // Check if token has expired
+    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+    const bufferTime = 30; // 30 seconds buffer
+    if (decoded.exp < currentTime - bufferTime) {
+        console.log("Token expired. Redirecting to login.");
+        sessionStorage.removeItem("authToken");
+        // window.location.href = "/"; // Redirect to login
+        return;
+    }
+
+    // Add button functionality based on user mode
+    if (decoded.mode === 'GUEST') {
+            restartBtn.addEventListener('click', () => {
+                window.location.href = "/guest-game";
+            });
+            menuBtn.addEventListener('click', () => {
+                window.location.href = "/";
+            });
+    } else if (decoded.mode === 'USER') {
+            restartBtn.addEventListener('click', () => {
+                window.location.href = "/user-game";
+            });
+            menuBtn.addEventListener('click', () => {
+                window.location.href = "/user";
+            });
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        // Optionally redirect to an error page or login
+        // window.location.href = "/";
+    }
+
+
+        submitScoreAndFetchLeaderboard()
 })

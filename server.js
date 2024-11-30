@@ -11,15 +11,43 @@ const validator = require('validator');
 
 
 const app = express()
-const PORT = 5000; 
+const PORT = 3000 
 
 
 // middleware
 app.use(bodyParser.json());
 app.use(cors());
 
+const generateToken = (user, mode) => {
+    const payload = {
+        id: user._id,
+        username: user.username,
+        mode, // userMode or guestMode
+    };
+    const secretKey = process.env.JWT_SECRET;
+    const options = { expiresIn: '1h' }; // Token expires in 1 hour
 
-  
+    return jwt.sign(payload, secretKey, options);
+};
+
+const verifyToken = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Authorization header missing' });
+    }
+
+    const token = authHeader.split(' ')[1]; // Extract token from "Bearer <token>"
+    const secretKey = 'your-secret-key';
+
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        req.user = decoded; // Attach decoded payload to the request
+        next(); // Proceed to the next middleware or route
+    } catch (err) {
+        return res.status(401).json({ message: 'Invalid or expired token' });
+    }
+};
+
 
 app.use(express.static("public"));
 
@@ -54,15 +82,39 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/main-menu.html");
 });
 
+
+// /guest route to handle guest login and token generation
 app.get('/guest', (req, res) => {
+    try {
+        const generateGuestId = () => crypto.randomBytes(16).toString('hex');
+        // Create a mock user object for generating the token (for guest)
+        const guestUser = { _id: generateGuestId, username: 'GUEST' };
+
+        // Generate the token with guest mode
+        const token = generateToken(guestUser, 'GUEST');
+
+        // Send the token to the client as part of the response body
+        res.json({
+            message: 'Guest login successful',
+            token: token,
+            username: 'GUEST',
+            mode: 'GUEST'
+        });
+    } catch (error) {
+        console.error("Error in /guest route:", error);
+        res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+});
+
+app.get('/guest-game', (req,res)=>{
     try {
         // Serve the index.html but append the query parameter
         res.sendFile(path.join(__dirname, 'public', 'game-guest.html'));
     } catch (error) {
-        console.error("Error serving /game route:", error);
+        console.error("Error serving /game-guest route:", error);
         res.status(500).send("Internal Server Error");
     }
-});
+})
 
 
 app.get('/user', (req, res) => {
@@ -98,7 +150,8 @@ app.get('/start', (req, res) => {
 
 
 // signup route
-app.post('/signup', async (req, res) => {
+app.post('/signup',
+     async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -114,8 +167,11 @@ app.post('/signup', async (req, res) => {
         await newUser.save();
         console.log("User created:", newUser);
 
-        // Send success response
-        return res.status(201).json({ message: "User created successfully", username: `${username}` });
+        // Generate the token with user mode
+        const token = generateToken(newUser, 'USER');
+        
+        // Send success response and token to client
+        return res.status(201).json({ message: "User created successfully", username: newUser.username, token: token });
     } catch (error) {
         console.error("Error during signup:", error);
         return res.status(500).json({ message: "Internal Server Error" });
@@ -123,42 +179,44 @@ app.post('/signup', async (req, res) => {
 });
 
 
+
 // login route
 app.post("/login", async (req, res) => {
-    const { username, password } = req.body
+    const { username, password } = req.body;
 
     try {
-        // check if user exists
-        const user  = await User.findOne({username})
+        // Check if user exists
+        const user = await User.findOne({ username });
 
-        if(!user){
-            return res.status(404).json({ message: "User not found"})
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
         }
 
-        // comparing passwords
-        const isMatch = await bcrypt.compare(password,user.password)
+        // Compare passwords
+        const isMatch = await bcrypt.compare(password, user.password);
 
-        if(!isMatch){
-            return res.status(401).json({message:"Invalid Credentials"})
+        if (!isMatch) {
+            return res.status(401).json({ message: "Invalid Credentials" });
         }
 
-        // creating JWT 
-        const token = jwt.sign({id: user._id, username: user.username}, process.env.JWT_SECRET, {
-            expiresIn: "1h"
-        })
-
-        res.status(200).json({message:"Login Successful", token: `${token}`, username: `${username}`})
-
+        // Generate JWT token with user mode
+        const token = generateToken(user, 'USER');
+        
+        
+        // Send token in the response
+        res.status(200).json({ message: "Login Successful",  token, username: user.username });
     } catch (error) {
-        res.status(500).json({message: "Error logging in user",error: error.message})
+        res.status(500).json({ message: "Error logging in user", error: error.message });
     }
-})
+});
+
 
 app.get('/leaderboard', async (req,res)=>{
     try{
         res.sendFile(path.join(__dirname, 'public', 'leaderboard.html'));
     }
         catch (error) {
+            alert("Error serving /leaederboard  route:")
             console.error("Error serving /leaederboard  route:", error);
             res.status(500).send("Internal Server Error");
         }
@@ -228,54 +286,6 @@ app.post('/submit-score', async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route to handle guest and user scores submission
-// app.post('/leaderboard-submit', async (req, res) => {
-//     const { username, score } = req.body;
-//     let leaderboard = await Leaderboard.findOne();
-  
-//     if (!leaderboard) {
-//       leaderboard = new Leaderboard({ scores: [] });
-//       await leaderboard.save();
-//     }
-  
-//     // Check if the username already exists in the leaderboard
-//     const existingEntry = leaderboard.scores.find(entry => entry.username === username);
-  
-//     if (existingEntry) {
-//       // If the player exists, update their score if the new score is higher
-//       existingEntry.score = Math.max(existingEntry.score, score);
-//     } else {
-//       // If the player doesn't exist, add them to the leaderboard
-//       leaderboard.scores.push({ username, score });
-//     }
-  
-//     // Sort leaderboard by score and limit to top 10
-//     leaderboard.scores = leaderboard.scores.sort((a, b) => b.score - a.score).slice(0, 10);
-  
-//     await leaderboard.save();
-  
-//     // Send back the updated leaderboard
-//     res.json({ leaderboard: leaderboard.scores });
-//   });
-  
 
 // starting server
 app.listen(PORT ,()=>{
