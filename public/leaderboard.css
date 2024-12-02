@@ -140,3 +140,48 @@ table.table {
         transform: none; /* Disable scaling on hover for smaller screens */
     }
 }
+/* Style for the player data box */
+#player-data-box {
+    margin: 20px auto;
+    padding: 15px;
+    width: 90%; /* Default width for smaller screens */
+    max-width: 600px; /* Caps the width for larger screens */
+    background: linear-gradient(145deg, #e0e0e0, #ffffff);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2), -3px -3px 10px rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: center;
+    font-size: 1.2rem;
+    overflow: auto; /* Handles extra content */
+    max-height: 300px; /* Adds scroll for overflow */
+}
+
+/* Add a smooth scroll effect for overflow */
+#player-data-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+#player-data-box::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#player-data-box::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+/* Responsive Design for Larger Screens */
+@media (min-width: 768px) {
+    #player-data-box {
+        width: 80%; /* Increases width for larger screens */
+    }
+}
+
+/* Responsive Design for Very Small Screens */
+@media (max-width: 480px) {
+    #player-data-box {
+        font-size: 1rem; /* Adjust font size for smaller screens */
+        padding: 10px; /* Reduces padding for compact design */
+    }
+}

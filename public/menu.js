@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
               sessionStorage.setItem("username", result.username);
   
               console.log("Token stored:", sessionStorage.getItem("authToken"));
-              alert("Token successfully set in sessionStorage");
+              
   
               // Redirect to the user page or wherever appropriate
               window.location.href = "/user";

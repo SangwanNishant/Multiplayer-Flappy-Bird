@@ -216,7 +216,7 @@ app.get('/leaderboard', async (req,res)=>{
         res.sendFile(path.join(__dirname, 'public', 'leaderboard.html'));
     }
         catch (error) {
-            alert("Error serving /leaederboard  route:")
+            
             console.error("Error serving /leaederboard  route:", error);
             res.status(500).send("Internal Server Error");
         }
@@ -241,8 +241,8 @@ app.post('/submit-score', async (req, res) => {
             }
 
             const updatedLeaderboard = await Leaderboard.find().sort({ score: -1 }).limit(10);
-            console.log("Updated leaderboard after guest addition:", updatedLeaderboard);
-            return res.status(200).json({ leaderboard: updatedLeaderboard });
+            
+            return res.status(200).json({ leaderboard: updatedLeaderboard ,username: username,score: score  });
         }
 
         // Handle registered users
@@ -278,8 +278,8 @@ app.post('/submit-score', async (req, res) => {
 
         // Fetch the updated leaderboard
         const updatedLeaderboard = await Leaderboard.find().sort({ score: -1 }).limit(10);
-        console.log("Updated leaderboard after user update:", updatedLeaderboard);
-        return res.status(200).json({ leaderboard: updatedLeaderboard });
+        
+        return res.status(200).json({ leaderboard: updatedLeaderboard , username, score});
 
     } catch (error) {
         console.error("Error in /submit-score:", error);

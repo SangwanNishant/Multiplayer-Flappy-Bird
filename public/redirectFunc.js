@@ -11,7 +11,7 @@ function redirectToGame() {
             sessionStorage.setItem("mode", data.mode);  // Store mode (GUEST)
 
             console.log("Guest token stored:", sessionStorage.getItem("authToken"));
-            alert("token set succesfully")
+            
 
             // Redirect to the game page (adjust to actual game page route)
             window.location.href = "/guest-game";  // Change to your game route

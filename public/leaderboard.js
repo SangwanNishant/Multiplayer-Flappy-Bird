@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             const data = await response.json();
 
             if(response.ok){
-                displayLeaderboard(data.leaderboard);
+                displayLeaderboard(data);
             } else{
                 console.log("error: ", data.message);
             }
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
     }
 
-    function displayLeaderboard(leaderboard){
+    function displayLeaderboard({leaderboard,username,score}){
         if (!Array.isArray(leaderboard)) {
             console.error("Invalid leaderboard data received:", leaderboard);
             return;
@@ -50,7 +50,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
             <td>${entry.score}</td>
         </tr>`;
         leaderboardTable.innerHTML += row;
+
+        
         });
+        const player_data_box = document.getElementById("player-data-box");
+        const playerData = document.createElement('h3');
+        playerData.textContent = `Username: ${username}  Score: ${score}`
+        player_data_box.appendChild(playerData);
     }
 
     const menuBtn = document.getElementById('back-to-main-menu-btn');
