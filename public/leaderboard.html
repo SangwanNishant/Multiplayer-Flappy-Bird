@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Leaderboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="leaderboard.css">
+</head>
+<body>
+    <div class="lb-panel">
+        <h1 class="game-title">LEADERBOARD</h1>
+        <h2 class="lb-subtitle">TOP 10 PLAYERS</h2>
+
+        <div class="lb-tabs" role="tablist">
+            <button class="lb-tab active" data-mode="SOLO"       role="tab">SOLO</button>
+            <button class="lb-tab"        data-mode="MULTIPLAYER" role="tab">MULTIPLAYER</button>
+        </div>
+
+        <div class="lb-table-wrap">
+            <table class="lb-table">
+                <thead>
+                    <tr>
+                        <th class="col-rank">#</th>
+                        <th class="col-name">PLAYER</th>
+                        <th class="col-score">SCORE</th>
+                    </tr>
+                </thead>
+                <tbody id="Leaderboard-table"></tbody>
+            </table>
+            <div id="lbEmpty" class="lb-empty hidden">NO SCORES YET &mdash; BE THE FIRST!</div>
+        </div>
+
+        <div id="player-data-box" class="lb-you hidden"></div>
+
+        <div class="lb-actions">
+            <button class="btn" id="restart-btn">PLAY AGAIN</button>
+            <button class="btn secondary" id="back-to-main-menu-btn">BACK TO MENU</button>
+        </div>
+    </div>
+
+    <script src="redirectFunc.js"></script>
+    <script src="leaderboard.js"></script>
+</body>
+</html>

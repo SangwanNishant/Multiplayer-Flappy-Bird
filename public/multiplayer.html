@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Multiplayer</title>
+    <link rel="stylesheet" href="multiplayer.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    </style>
+</head>
+<body>
+    <div class="multiplayer-menu">
+        <h1 class="game-title">FLAPPY BIRD</h1>
+        <h2 class="mode-title">MULTIPLAYER MODES</h2>
+        
+        <div class="mode-options">
+            <div class="mode-card" id="splitScreenMode">
+                <h3>SPLIT SCREEN </h3>
+                <p>Play side-by-side<br>Highest score wins!</p>
+                <button onclick="redirectToSplitScreenGamePage()" class="play-btn">PLAY</button>
+            </div>
+
+            <div class="mode-card soon" id="battleMode">
+                <span class="badge">COMING SOON</span>
+                <h3>1V1 BATTLE</h3>
+                <p>Direct fight<br>First to die loses!</p>
+                <button class="play-btn" disabled>COMING SOON</button>
+            </div>
+
+            <div class="mode-card soon" id="moreModes">
+                <span class="badge">COMING SOON</span>
+                <h3>MORE MODES</h3>
+                <p>Tournaments, power-ups<br>and more are on the way!</p>
+                <button class="play-btn" disabled>STAY TUNED</button>
+            </div>
+        </div>
+        
+        <div class="player-info">
+            <span id="playerName">Player: Guest</span>
+            <span id="connectionStatus">● Online</span>
+        </div>
+
+        <div class="mp-footer">
+            <button type="button" class="back-btn" id="mpBackBtn">BACK</button>
+        </div>
+    </div>
+
+    <script src="redirectFunc.js"></script>
+    <script src="multiplayer.js"></script>
+</body>
+</html>

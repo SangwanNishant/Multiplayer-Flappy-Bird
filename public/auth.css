@@ -1,0 +1,198 @@
+/* ================================================================
+   Auth pages — /start (signup + login) and /user (logged-in menu)
+   Same arcade theme as multiplayer.css and split_screen.css
+   ================================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 100%; height: 100%; }
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    background: url('assets/bg.png') center/cover no-repeat fixed;
+    background-color: #6ec6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow: auto;
+}
+
+.hidden { display: none !important; }
+
+/* ---------------- Panel ---------------- */
+.auth-panel {
+    background-color: rgba(0, 0, 0, 0.72);
+    border-radius: 20px;
+    padding: 30px 28px;
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.game-title {
+    color: #ffeb3b;
+    font-size: 1.8rem;
+    text-shadow: 4px 4px 0 #e53935;
+    margin: 0 0 8px;
+    letter-spacing: 2px;
+    line-height: 1.2;
+}
+
+.form-title {
+    color: #fff;
+    font-size: 1rem;
+    text-shadow: 3px 3px 0 #1a237e;
+    margin: 6px 0 20px;
+    letter-spacing: 2px;
+}
+
+/* ---------------- Buttons ---------------- */
+.btn {
+    background: #ff5722;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 22px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #e64a19;
+    transition: background 0.15s, transform 0.08s;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+}
+.btn:hover { background: #ff7043; }
+.btn:active { transform: translateY(4px); box-shadow: none; }
+
+.btn.secondary {
+    background: #1e79a8;
+    box-shadow: 0 4px 0 #146080;
+}
+.btn.secondary:hover { background: #2a8bc0; }
+.btn.secondary:active { box-shadow: none; }
+
+.btn.ghost {
+    background: transparent;
+    color: #bbdefb;
+    box-shadow: none;
+    border: 2px solid #bbdefb;
+    padding: 10px 22px;
+}
+.btn.ghost:hover { background: rgba(187, 222, 251, 0.12); color: #fff; }
+.btn.ghost:active { transform: translateY(2px); }
+
+.btn:disabled {
+    background: #777;
+    box-shadow: 0 4px 0 #444;
+    cursor: not-allowed;
+}
+
+/* ---------------- Inputs ---------------- */
+.field { text-align: left; margin: 12px 0; }
+
+.field label {
+    display: block;
+    font-size: 0.65rem;
+    color: #bbdefb;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.field input {
+    width: 100%;
+    padding: 14px 14px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    border: 3px solid #ffeb3b;
+    background: #fff;
+    color: #0d47a1;
+    outline: none;
+    transition: border-color 0.15s;
+}
+.field input:focus { border-color: #ff5722; }
+.field input.error { border-color: #e53935; background: #ffeaea; }
+
+.field .hint {
+    font-size: 0.55rem;
+    color: #8eb1cf;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+}
+
+/* ---------------- Status message ---------------- */
+.status {
+    margin: 16px 0 6px;
+    padding: 10px 12px;
+    font-size: 0.7rem;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    min-height: 1.2em;
+    line-height: 1.4;
+    word-break: break-word;
+}
+.status:empty { display: none; }
+.status.ok    { background: rgba(76, 175, 80, 0.18); color: #a5d6a7; border: 2px solid #4caf50; }
+.status.err   { background: rgba(229, 57, 53, 0.18); color: #ff8a80; border: 2px solid #e53935; }
+.status.info  { background: rgba(30, 121, 168, 0.18); color: #bbdefb; border: 2px solid #1e79a8; }
+
+/* ---------------- Divider for switching forms ---------------- */
+.switch-row {
+    margin-top: 18px;
+    font-size: 0.6rem;
+    color: #bbdefb;
+    letter-spacing: 1px;
+}
+.switch-row a {
+    color: #ffeb3b;
+    text-decoration: none;
+    margin-left: 6px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+.switch-row a:hover { border-bottom-color: #ffeb3b; }
+
+/* ---------------- Logged-in page ---------------- */
+.user-banner {
+    background: rgba(255, 255, 255, 0.9);
+    color: #0d47a1;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 0 0 16px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.user-banner .uname { color: #0d47a1; font-weight: bold; word-break: break-word; }
+.user-banner .logout {
+    background: transparent;
+    color: #e53935;
+    border: 2px solid #e53935;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.user-banner .logout:hover { background: #e53935; color: #fff; }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 480px) {
+    .auth-panel    { padding: 22px 18px; }
+    .game-title    { font-size: 1.4rem; text-shadow: 3px 3px 0 #e53935; }
+    .form-title    { font-size: 0.85rem; }
+    .btn           { font-size: 0.7rem; padding: 12px 18px; }
+    .field input   { font-size: 0.7rem; padding: 12px 12px; }
+    .status        { font-size: 0.6rem; }
+}

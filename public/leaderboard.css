@@ -1,0 +1,183 @@
+/* ================================================================
+   Leaderboard — arcade theme, matches the rest of the game
+   ================================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 100%; min-height: 100%; }
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    background: url('assets/bg.png') center/cover no-repeat fixed;
+    background-color: #6ec6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.hidden { display: none !important; }
+
+/* ---------------- Panel ---------------- */
+.lb-panel {
+    background-color: rgba(0, 0, 0, 0.74);
+    border-radius: 20px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 720px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.game-title {
+    color: #ffeb3b;
+    font-size: 2rem;
+    text-shadow: 5px 5px 0 #e53935;
+    margin: 0 0 8px;
+    letter-spacing: 2px;
+    line-height: 1.2;
+}
+
+.lb-subtitle {
+    color: #fff;
+    font-size: 0.95rem;
+    text-shadow: 3px 3px 0 #1a237e;
+    margin: 6px 0 18px;
+    letter-spacing: 2px;
+}
+
+/* ---------------- Tabs ---------------- */
+.lb-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 6px 0 18px;
+    flex-wrap: wrap;
+}
+.lb-tab {
+    background: rgba(255, 255, 255, 0.08);
+    color: #bbdefb;
+    border: 2px solid #bbdefb;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+.lb-tab:hover  { background: rgba(187, 222, 251, 0.16); color: #fff; }
+.lb-tab.active {
+    background: #ffeb3b;
+    color: #0d47a1;
+    border-color: #ffeb3b;
+    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.8);
+}
+
+/* ---------------- Table ---------------- */
+.lb-table-wrap {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 14px;
+    padding: 14px 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+}
+
+.lb-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #0d47a1;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.68rem;
+}
+.lb-table thead th {
+    padding: 12px 10px;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    color: #e53935;
+    border-bottom: 2px solid #e53935;
+}
+.lb-table tbody td {
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(13, 71, 161, 0.12);
+    word-break: break-word;
+}
+.lb-table tbody tr:last-child td { border-bottom: none; }
+.lb-table tbody tr:hover td { background: rgba(255, 235, 59, 0.15); }
+
+.col-rank  { width: 48px;  text-align: center; }
+.col-score { width: 110px; text-align: right; color: #ff5722; }
+.col-name  { text-align: left; }
+
+.lb-table tbody tr.rank-1 td { color: #c62828; }
+.lb-table tbody tr.rank-2 td { color: #ef6c00; }
+.lb-table tbody tr.rank-3 td { color: #6a1b9a; }
+
+.lb-table tbody tr.me td {
+    background: rgba(255, 235, 59, 0.22);
+    border-left: 4px solid #ff5722;
+}
+
+.lb-empty {
+    padding: 24px 10px;
+    color: #0d47a1;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+/* ---------------- "Your score" banner ---------------- */
+.lb-you {
+    margin-top: 16px;
+    background: rgba(255, 235, 59, 0.92);
+    color: #b71c1c;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    box-shadow: 0 4px 0 #e64a19;
+    text-align: center;
+}
+
+/* ---------------- Actions ---------------- */
+.lb-actions {
+    margin-top: 22px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.btn {
+    background: #ff5722;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #e64a19;
+    transition: background 0.15s, transform 0.08s;
+}
+.btn:hover  { background: #ff7043; }
+.btn:active { transform: translateY(4px); box-shadow: none; }
+.btn.secondary {
+    background: #1e79a8;
+    box-shadow: 0 4px 0 #146080;
+}
+.btn.secondary:hover { background: #2a8bc0; }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 560px) {
+    .game-title { font-size: 1.4rem; text-shadow: 4px 4px 0 #e53935; }
+    .lb-subtitle { font-size: 0.75rem; }
+    .lb-tab { font-size: 0.6rem; padding: 8px 12px; }
+    .lb-table { font-size: 0.58rem; }
+    .lb-table thead th { font-size: 0.55rem; padding: 10px 6px; }
+    .lb-table tbody td { padding: 10px 6px; }
+    .col-rank  { width: 34px; }
+    .col-score { width: 72px; }
+    .btn { font-size: 0.65rem; padding: 10px 16px; }
+}

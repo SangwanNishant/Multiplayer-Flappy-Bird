@@ -1,0 +1,31 @@
+/* ================================================================
+   Floating "BACK TO MENU" button for in-game screens.
+   Included on user-game.html and game-guest.html so the player can
+   always bail back to their menu without waiting for Game Over.
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.game-back-btn {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.65);
+    color: #bbdefb;
+    border: 2px solid #bbdefb;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s, color 0.15s;
+}
+.game-back-btn:hover {
+    background: rgba(229, 57, 53, 0.85);
+    color: #fff;
+    border-color: #fff;
+}
+.game-back-btn:active { transform: translateY(2px); }

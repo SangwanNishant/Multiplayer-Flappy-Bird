@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Split Screen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="split_screen.css">
+</head>
+<body>
+    <!-- 1. Name / matchmaking screen -->
+    <div id="nameScreen" class="screen">
+        <div class="name-box">
+            <h1 class="title">FLAPPY BIRD</h1>
+            <h2 class="subtitle">SPLIT-SCREEN VS</h2>
+            <label for="playerName">CHOOSE A DISPLAY NAME</label>
+            <input type="text" id="playerName" maxlength="20" placeholder="e.g. Nishant" />
+            <div class="name-actions">
+                <button id="findMatchBtn" class="btn">FIND MATCH</button>
+                <button class="btn secondary" id="ssNameBack">BACK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Lobby screen -->
+    <div id="lobbyScreen" class="screen hidden">
+        <div class="lobby-wrap">
+            <h1 class="title">MATCH LOBBY</h1>
+            <h2 class="subtitle">READY UP TO START</h2>
+
+            <div class="lobby">
+                <div class="lobby-slot" id="slotLeft">
+                    <div class="side-tag left">LEFT</div>
+                    <div class="slot-name">WAITING...</div>
+                    <div class="slot-ready">NOT READY</div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="lobby-slot" id="slotRight">
+                    <div class="side-tag right">RIGHT</div>
+                    <div class="slot-name">WAITING...</div>
+                    <div class="slot-ready">NOT READY</div>
+                </div>
+            </div>
+
+            <div class="lobby-help">BOTH PLAYERS MUST READY UP</div>
+            <div class="name-actions">
+                <button id="readyBtn" class="btn">READY</button>
+                <button class="btn secondary" id="ssLobbyQuit">QUIT</button>
+            </div>
+        </div>
+        <div id="countdown" class="countdown hidden">3</div>
+    </div>
+
+    <!-- 3. Game screen -->
+    <div id="gameScreen" class="screen hidden">
+        <div class="pane left-pane">
+            <div class="pane-header">
+                <span class="hdr-name" id="leftName">LEFT</span>
+                <span class="hdr-score" id="leftScore">0</span>
+            </div>
+            <canvas id="leftCanvas"></canvas>
+            <div class="controls-hint">SPACE / W / ARROW UP = FLAP &nbsp;·&nbsp; E = DOUBLE FLAP</div>
+        </div>
+        <div class="pane right-pane">
+            <div class="pane-header">
+                <span class="hdr-name" id="rightName">RIGHT</span>
+                <span class="hdr-score" id="rightScore">0</span>
+            </div>
+            <canvas id="rightCanvas"></canvas>
+            <div class="controls-hint">SPACE / W / ARROW UP = FLAP &nbsp;·&nbsp; E = DOUBLE FLAP</div>
+        </div>
+    </div>
+
+    <!-- 4. Result screen -->
+    <div id="resultScreen" class="screen hidden">
+        <div class="result-wrap">
+            <h1 class="title" id="resultTitle">GAME OVER</h1>
+
+            <div class="result-scores">
+                <div class="result-slot">
+                    <div class="side-tag left">LEFT</div>
+                    <div class="slot-name" id="resLeftName">–</div>
+                    <div class="big-score" id="resLeftScore">0</div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="result-slot">
+                    <div class="side-tag right">RIGHT</div>
+                    <div class="slot-name" id="resRightName">–</div>
+                    <div class="big-score" id="resRightScore">0</div>
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button id="playAgainBtn" class="btn">PLAY AGAIN</button>
+                <button class="btn secondary" id="ssResultBack">BACK TO MENU</button>
+            </div>
+            <div id="opponentLeftMsg" class="hidden error-msg">OPPONENT LEFT THE MATCH</div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="split_screen.js"></script>
+</body>
+</html>

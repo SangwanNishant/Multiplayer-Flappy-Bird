@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Game Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="mode-picker.css">
+</head>
+<body>
+    <div class="mode-panel">
+        <h1 class="game-title">FLAPPY BIRD</h1>
+        <h2 class="mode-subtitle">CHOOSE YOUR MODE</h2>
+
+        <div class="mode-options">
+            <div class="mode-card">
+                <h3>SOLO</h3>
+                <p>Classic Flappy Bird.<br>Beat your own best.</p>
+                <button onclick="redirectToGame()" class="play-btn">PLAY SOLO</button>
+            </div>
+
+            <div class="mode-card">
+                <h3>MULTIPLAYER</h3>
+                <p>Face a real opponent.<br>Higher score wins!</p>
+                <button onclick="redirectGuestToMultiplayerPage()" class="play-btn secondary">PLAY MULTI</button>
+            </div>
+        </div>
+
+        <div class="mode-footer">
+            <a class="btn-row" onclick="redirectGuestToLeaderboard()">LEADERBOARD</a>
+            <a class="btn-row" onclick="redirectBackToMenu()">BACK</a>
+        </div>
+    </div>
+
+    <script src="redirectFunc.js"></script>
+</body>
+</html>
