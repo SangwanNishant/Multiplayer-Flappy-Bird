@@ -94,3 +94,9 @@ create policy "Users can update own profile"
 drop policy if exists "Leaderboards are viewable by everyone" on public.leaderboards;
 create policy "Leaderboards are viewable by everyone"
     on public.leaderboards for select using (true);
+
+-- Clean up the (now-unused) matchmaking artefacts from earlier revisions.
+-- Matchmaking is handled entirely client-side over Supabase Realtime
+-- Presence now — no database tables or RPCs are involved.
+drop function if exists public.find_or_create_match(text);
+drop table     if exists public.match_queue;

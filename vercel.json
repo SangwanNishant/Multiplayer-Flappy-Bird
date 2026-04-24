@@ -1,0 +1,26 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/index" },
+    { "source": "/config", "destination": "/api/index" },
+    { "source": "/guest", "destination": "/api/index" },
+    { "source": "/guest-game", "destination": "/api/index" },
+    { "source": "/user", "destination": "/api/index" },
+    { "source": "/user-game", "destination": "/api/index" },
+    { "source": "/start", "destination": "/api/index" },
+    { "source": "/option-mode-guest", "destination": "/api/index" },
+    { "source": "/multiplayer", "destination": "/api/index" },
+    { "source": "/split-screen-game", "destination": "/api/index" },
+    { "source": "/leaderboard", "destination": "/api/index" },
+    { "source": "/signup", "destination": "/api/index" },
+    { "source": "/login", "destination": "/api/index" },
+    { "source": "/submit-score", "destination": "/api/index" },
+    { "source": "/leaderboard-data", "destination": "/api/index" }
+  ]
+}

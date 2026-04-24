@@ -1,6 +1,16 @@
-# Local Setup — Multiplayer Flappy Bird (Supabase edition)
+# Setup — Multiplayer Flappy Bird (Supabase + Vercel edition)
 
-This is the replica of [SangwanNishant/Multiplayer-Flappy-Bird](https://github.com/SangwanNishant/Multiplayer-Flappy-Bird) with a working Socket.IO split-screen multiplayer, separate SOLO / MULTIPLAYER leaderboards, and **Supabase** (Postgres + Auth) instead of MongoDB + custom JWT.
+Replica of [SangwanNishant/Multiplayer-Flappy-Bird](https://github.com/SangwanNishant/Multiplayer-Flappy-Bird) with a fully working split-screen multiplayer, separate SOLO / MULTIPLAYER leaderboards, and **Supabase** (Postgres + Auth + Realtime) as the only backend service. Deployable to **Vercel** out of the box.
+
+## Why this is different from the original
+
+The original project used Socket.IO with an in-memory `rooms` map on a single Node server. That pattern doesn't work on Vercel: each request lands on a different serverless instance, so the "waiting room" for matchmaking gets lost between the two players' requests.
+
+This version replaces Socket.IO entirely:
+
+- **Matchmaking** is 100% client-side over a **Supabase Realtime Presence** channel (`lobby:mp`). No database, no server call, no migration. Pairing is done with a deterministic age-based algorithm over the presence state.
+- **In-match communication** runs over a **Supabase Realtime Broadcast channel** (`match:<matchId>`), browser-to-browser through Supabase's servers — Vercel never sees a WebSocket.
+- **Physics** runs on the `left` player's browser (the host). The `right` player sends flap events and renders the state it receives. No server loop needed.
 
 ## 1. Install prerequisites
 
@@ -10,10 +20,11 @@ This is the replica of [SangwanNishant/Multiplayer-Flappy-Bird](https://github.c
 ## 2. Create the Supabase project
 
 1. Go to <https://supabase.com/dashboard> and click **New project**.
-2. Pick any name (e.g. `flappy-bird`), set a strong database password (you won't need it for this app — the JS client uses API keys), and pick the region nearest to you.
+2. Pick any name (e.g. `flappy-bird`), set a strong database password, and pick the region nearest to you.
 3. Wait ~1 min for the project to provision.
-4. In the left sidebar click **SQL Editor → New query**, paste the entire contents of [`supabase/schema.sql`](supabase/schema.sql), and click **Run**. You should see `Success. No rows returned`.
+4. In the left sidebar click **SQL Editor → New query**, paste the entire contents of [`supabase/schema.sql`](supabase/schema.sql), and click **Run**. You should see `Success. No rows returned`. This creates `profiles`, `leaderboards`, `match_queue`, the RPC, the triggers, and the RLS policies in one shot.
 5. In **Authentication → Providers → Email**, confirm that **Email** provider is enabled. You do **not** need to configure SMTP — the server uses `email_confirm: true` and a fake internal domain, so no real email is ever sent.
+6. **Optional** — if you'd rather run the migration from the command line, copy the pooler URL from **Project Settings → Database → Connection pooling → Session pooler** into `.env` as `SUPABASE_DB_URL`, then run `npm run migrate`. The "direct" connection string is IPv6-only on the free tier, so use the pooler host (`aws-0-<region>.pooler.supabase.com`).
 
 ### (Optional) Disable email confirmation globally
 
@@ -129,3 +140,48 @@ If you want to reset accounts:
 
 - **Auth users:** Supabase dashboard → **Authentication → Users → delete**. The `profiles` row is removed automatically by the `on delete cascade`.
 - **Guest leaderboard rows:** run `delete from public.leaderboards where username like 'GUEST_%';` in the SQL editor.
+- **Stuck matchmaking queue:** run `delete from public.match_queue;` in the SQL editor.
+
+---
+
+## Deploying to Vercel
+
+This project is laid out so Vercel "just works":
+
+- `public/` is served as static assets directly by Vercel's CDN.
+- `api/index.js` is the single serverless function. It requires `server.js` and hands Vercel the Express app.
+- `vercel.json` rewrites the human-readable routes (`/signup`, `/login`, `/find-match`, `/leaderboard-data`, `/config`, etc.) to `api/index`.
+
+### Steps
+
+1. Push this folder to GitHub.
+2. On <https://vercel.com> → **Add new project → Import** your repo.
+3. **Framework preset:** Other. Leave the build command empty; output dir auto-detected from `vercel.json`.
+4. Under **Environment Variables**, add **all four**:
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `AUTH_EMAIL_DOMAIN` = `flappy.local`
+5. Click **Deploy**.
+
+That's it. You do **not** need to set a `PORT` — Vercel ignores `app.listen()` because `require.main !== module` inside a serverless function.
+
+### How multiplayer works on Vercel
+
+When two browsers open `/split-screen-game`:
+
+1. Each client fetches `/config` (Vercel serverless function) to get the Supabase URL + anon key.
+2. Each client opens a **Supabase Realtime Presence** channel `lobby:mp` and tracks itself with `{ id, name, joinedAt }`.
+3. On every presence update, all clients sort the lobby by `joinedAt` (stable, deterministic). The oldest client is the "host" and waits; any other client sends a `pair_request` broadcast to the oldest.
+4. The oldest accepts the FIRST `pair_request` it sees and replies with `pair_accept`. Both clients untrack the lobby and join a private channel `match:<matchId>`.
+5. The `left` client (host) runs the physics loop at 60 Hz and broadcasts state at ~30 Hz. The `right` client (peer) sends flap events back.
+6. When both birds die, each client submits its score to `/submit-score`.
+
+Vercel only handles ≤100 ms HTTP requests (config, submit-score, login, etc.). All real-time traffic flows directly between browsers through Supabase Realtime — Vercel never sees a WebSocket.
+
+### Troubleshooting on Vercel
+
+- **404 on every page** → Make sure `vercel.json` is committed.
+- **500 on `/signup`, `/login`, `/submit-score`, or `/config`** → Check the function logs (Vercel → Deployments → Functions → logs). 99% of the time this is missing env vars. All four of `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `AUTH_EMAIL_DOMAIN` must be set.
+- **"SEARCHING..." never finishes** → Open the browser console on both tabs. You should see `[mm] lobby status: SUBSCRIBED` in both, followed by `[mm] sending pair_request to ...` on the second one and `[mm] received pair_request from ...` on the first. If you see `CHANNEL_ERROR`, Realtime isn't reachable from the browser — check that your Supabase project has Realtime enabled (default on) and that the anon key in `/config` matches the one shown in Supabase → Settings → API.
+- **Score doesn't save** → Check that the `profiles` and `leaderboards` tables exist (run `supabase/schema.sql` in the Supabase SQL editor once if you haven't).
